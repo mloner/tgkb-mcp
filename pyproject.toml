@@ -1,0 +1,39 @@
+[project]
+name = "tgkb"
+version = "0.1.0"
+description = "Telegram knowledge base: authenticated export, Russian full-text search, and a cited read-only MCP query surface."
+readme = "README.md"
+license = "MIT"
+license-files = ["LICENSE"]
+authors = [{ name = "mloner" }]
+requires-python = ">=3.12"
+dependencies = [
+    "telethon==1.44.0",
+    "apsw==3.53.3.1",
+    "pymorphy3==2.0.6",
+    "pymorphy3-dicts-ru==2.4.417150.4580142",
+    "mcp==1.28.1",
+    "cryptography==49.0.0",
+]
+
+[project.scripts]
+tgkb = "tgkb.writer.cli:main"
+tgkb-mcp = "tgkb.reader.server:main"
+
+[build-system]
+requires = ["uv_build>=0.11,<0.12"]
+build-backend = "uv_build"
+
+[tool.uv.build-backend]
+module-name = "tgkb"
+module-root = ""
+
+[dependency-groups]
+dev = [
+    "pytest>=8",
+    # Local-testing convenience only: auto-loads a gitignored .env so
+    # `tgkb auth` picks up TG_* creds without manual env exports. NOT a runtime
+    # dependency — the CLI imports it softly and works without it. The
+    # encrypted at-rest credential store is Story 1.4 (AD-8).
+    "python-dotenv>=1",
+]

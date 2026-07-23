@@ -1,0 +1,7 @@
+{
+  "chats": [
+    { "username": "some_public_channel" },
+    { "id": -1001234567890, "title": "My private group" }
+  ],
+  "throttle": { "rate_per_second": 1.0 }
+}
